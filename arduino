@@ -1,0 +1,73 @@
+int cm;
+int tempo;
+int e;
+int piezo = 9;
+#include<Servo.h>;
+Servo krish;
+void setup()
+{
+  pinMode(9, OUTPUT);
+  pinMode(10, INPUT);
+  krish.attach(8);
+  Serial.begin(9600);
+  pinMode(piezo, OUTPUT);
+}
+
+void loop()
+{
+  long Distance;
+  digitalWrite(9, LOW);
+  delayMicroseconds(2);
+  digitalWrite(9, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(9, LOW);
+  pinMode(10, INPUT);
+  tempo = pulseIn(10, HIGH);
+  cm = q (tempo);
+  if(cm < 25 && cm > 20){
+    digitalWrite(5,HIGH);
+  }
+  if(cm < 20 && cm > 15){
+    digitalWrite(4,HIGH);
+    digitalWrite(5,LOW);
+  }
+  if(cm < 15 && cm > 10){
+    digitalWrite(3,HIGH);
+    digitalWrite(4,LOW);
+  }
+  if(cm < 10 && cm > 5){
+    digitalWrite(2,HIGH);
+    digitalWrite(4,LOW);  
+  } 
+ if(cm <5 && cm > 0 ) 
+    {
+      while(e<1)
+      {
+    krish.write (0);
+    analogWrite(11,255);
+    delay(3000);
+    krish.write (90);
+    delay(2000);
+    digitalWrite(13,HIGH);
+    digitalWrite(12,HIGH);
+    digitalWrite(2,LOW);
+    digitalWrite(3,LOW);
+    digitalWrite(4,LOW);
+    digitalWrite(5,LOW);
+    delay(10000); 
+    digitalWrite(13,LOW);
+    digitalWrite(12,LOW);
+        e += 1 ;
+      }
+    }
+      else
+      {
+        e = 0;
+      } 
+  Serial.println(cm);
+  delay(9);
+}
+ long q (long w)
+{
+return w /2/29;
+ }
